@@ -1,386 +1,167 @@
+import { FC } from "react";
+import NavBar from "../components/shared/Navbar";
 
-
-const Homepage = () => {
+const HomeView: FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-900 to-green-700 text-white">
-      {/* Navigation */}
-      <nav className="fixed w-full bg-green-800 bg-opacity-90 z-50">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <img src="/beaver-logo.png" alt="BOBER Logo" className="h-10 w-10" />
-            <span className="text-2xl font-bold">BOBER</span>
-          </div>
-          <div className="hidden md:flex space-x-6">
-            <a href="#about" className="hover:text-yellow-300">About</a>
-            <a href="#tokenomics" className="hover:text-yellow-300">Tokenomics</a>
-            <a href="#roadmap" className="hover:text-yellow-300">Roadmap</a>
-            <a href="#how-to-buy" className="hover:text-yellow-300">How to Buy</a>
-          </div>
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-bold py-2 px-4 rounded-full">
-            Connect Wallet
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-4">
-        <div className="absolute inset-0 overflow-hidden">
-          <img 
-            src="/beaver-background.png" 
-            alt="Cute beaver holding a twig" 
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
-        <div className="container mx-auto relative z-10 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-yellow-400">BOBER</span> The Beaver Coin
+    <>
+      <div
+        className="min-h-screen flex flex-col items-center text-white bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('/jelo_bg.png')",
+        }}
+      >
+                <NavBar />
+        {/* Hero Section */}
+        <div className="w-full text-center py-16 px-4 bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px]">
+          <h1 className="text-9xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r text-white">
+            Jelo
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-            The cutest dam builder in the crypto forest! Join our ecosystem and help Bober build the future.
+          <p className="text-xl max-w-3xl mx-auto mb-8 text-cyan-50">
+            Meet JELO, the cutest jellyfish meme coin floating through the blockchain ocean! Dive into a world of fun, community, and rewards.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-bold py-3 px-8 rounded-full text-lg">
-              Buy $BOBER
-            </button>
-            <button className="border-2 border-yellow-500 hover:bg-yellow-500 hover:bg-opacity-20 font-bold py-3 px-8 rounded-full text-lg">
-              Learn More
-            </button>
-          </div>
         </div>
-      </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 bg-green-800 bg-opacity-50">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            About <span className="text-yellow-400">BOBER</span>
-          </h2>
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="md:w-1/2">
-              <img 
-                src="/beaver-character.png" 
-                alt="BOBER character" 
-                className="rounded-2xl shadow-lg w-full max-w-md mx-auto"
-              />
+        {/* Features Section */}
+        <div className="w-full bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px] py-12 px-6">
+          <h2 className="text-5xl font-bold text-center mb-8 text-cyan-100">Why Choose JELO?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Community-Driven</h3>
+              <p className="text-lg text-cyan-50">JELO is powered by the community, creating a strong and friendly ecosystem.</p>
             </div>
-            <div className="md:w-1/2">
-              <p className="text-lg mb-6">
-                BOBER is a meme coin with a mission - to bring the hardworking spirit of beavers to the crypto world. 
-                Just like beavers build dams that create entire ecosystems, $BOBER aims to build a strong community 
-                that supports each other.
-              </p>
-              <p className="text-lg mb-6">
-                Our cute beaver mascot represents persistence, teamwork, and the ability to create something 
-                amazing from simple materials (or in our case, from simple transactions).
-              </p>
-              <div className="bg-green-900 p-6 rounded-xl">
-                <h3 className="text-xl font-bold mb-3">Contract Address:</h3>
-                <div className="flex items-center bg-green-800 p-3 rounded-lg overflow-x-auto">
-                  <code className="text-yellow-300">0xBe4v3r...B0b3r</code>
-                  <button className="ml-auto bg-green-700 hover:bg-green-600 px-3 py-1 rounded">
-                    Copy
-                  </button>
-                </div>
-              </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Deflationary</h3>
+              <p className="text-lg text-cyan-50">With every transaction, a portion is burned to ensure scarcity and increase value.</p>
+            </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Adorable Branding</h3>
+              <p className="text-lg text-cyan-50">JELO's jellyfish design makes it a standout in the meme coin world.</p>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Tokenomics Section */}
-      <section id="tokenomics" className="py-20 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            <span className="text-yellow-400">Token</span>omics
-          </h2>
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            <div>
-              <h3 className="text-2xl font-bold mb-6">Distribution</h3>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span>Liquidity Pool</span>
-                    <span>60%</span>
-                  </div>
-                  <div className="w-full bg-green-800 rounded-full h-3">
-                    <div className="bg-yellow-500 h-3 rounded-full" style={{width: '60%'}}></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span>Community Rewards</span>
-                    <span>20%</span>
-                  </div>
-                  <div className="w-full bg-green-800 rounded-full h-3">
-                    <div className="bg-yellow-500 h-3 rounded-full" style={{width: '20%'}}></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span>Development</span>
-                    <span>10%</span>
-                  </div>
-                  <div className="w-full bg-green-800 rounded-full h-3">
-                    <div className="bg-yellow-500 h-3 rounded-full" style={{width: '10%'}}></div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-1">
-                    <span>Marketing</span>
-                    <span>10%</span>
-                  </div>
-                  <div className="w-full bg-green-800 rounded-full h-3">
-                    <div className="bg-yellow-500 h-3 rounded-full" style={{width: '10%'}}></div>
-                  </div>
-                </div>
-              </div>
+        {/* Tokenomics Section */}
+        <div className="w-full bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px] py-12 px-6">
+          <h2 className="text-5xl font-bold text-center mb-8 text-cyan-100">Tokenomics</h2>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-2 text-cyan-200">Total Supply</h3>
+              <p className="text-lg text-cyan-50">1 Billion JELO</p>
             </div>
-            <div className="bg-green-900 p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-6">Key Details</h3>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span><strong>Total Supply:</strong> 1,000,000,000 $BOBER</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span><strong>Tax:</strong> 5% buy/sell (3% liquidity, 2% marketing)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span><strong>Chain:</strong> Ethereum (ERC-20)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span><strong>LP Locked:</strong> 1 year (proof available)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-yellow-400 mr-2">✓</span>
-                  <span><strong>Contract Renounced:</strong> Yes</span>
-                </li>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-2 text-cyan-200">Community Wallet</h3>
+              <p className="text-lg text-cyan-50">90% for the community</p>
+            </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-2 text-cyan-200">Marketing</h3>
+              <p className="text-lg text-cyan-50">10% for growth and adoption</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Roadmap Section */}
+        <div className="w-full bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px] py-12 px-6">
+          <h2 className="text-5xl font-bold text-center mb-12 text-cyan-100">Roadmap</h2>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Phase 1: Launch</h3>
+              <ul className="space-y-3 text-lg text-cyan-50">
+                <li>• Website Launch</li>
+                <li>• Community Building</li>
+                <li>• Token Launch</li>
+                <li>• Initial Marketing Push</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Phase 2: Growth</h3>
+              <ul className="space-y-3 text-lg text-cyan-50">
+                <li>• Exchange Listings</li>
+                <li>• Partnership Development</li>
+                <li>• Community Events</li>
+                <li>• NFT Collection Launch</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Phase 3: Expansion</h3>
+              <ul className="space-y-3 text-lg text-cyan-50">
+                <li>• Major Exchange Listings</li>
+                <li>• JELO Ecosystem Development</li>
+                <li>• Cross-Chain Integration</li>
+                <li>• Mobile App Development</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Phase 4: Evolution</h3>
+              <ul className="space-y-3 text-lg text-cyan-50">
+                <li>• Governance Implementation</li>
+                <li>• DeFi Integration</li>
+                <li>• Global Marketing Campaign</li>
+                <li>• Community-Led Development</li>
               </ul>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Roadmap Section */}
-      <section id="roadmap" className="py-20 px-4 bg-green-800 bg-opacity-50">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-16">
-            <span className="text-yellow-400">Dam</span> Building Roadmap
-          </h2>
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="hidden md:block absolute left-1/2 h-full w-1 bg-yellow-500"></div>
-            
-            {/* Roadmap items */}
-            <div className="space-y-16">
-              {/* Phase 1 */}
-              <div className="relative md:flex justify-between items-center">
-                <div className="md:w-5/12 md:pr-10 md:text-right mb-6 md:mb-0">
-                  <h3 className="text-2xl font-bold text-yellow-400">Phase 1: Gathering Twigs</h3>
-                  <p className="text-lg">Q2 2023</p>
-                </div>
-                <div className="hidden md:block w-16 h-16 rounded-full bg-yellow-500 border-4 border-green-900 flex items-center justify-center mx-auto">
-                  <span className="text-green-900 font-bold">1</span>
-                </div>
-                <div className="md:w-5/12 md:pl-10 bg-green-900 p-6 rounded-xl">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>Token launch & initial liquidity</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>Community building</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>First CEX listing</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>500 holders</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+        {/* Contract & Social Section */}
+        <div className="w-full bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px] py-12 px-6 text-center">
+          <h2 className="text-5xl font-bold text-center mb-8 text-cyan-100">Contract & Community</h2>
 
-              {/* Phase 2 */}
-              <div className="relative md:flex justify-between items-center">
-                <div className="md:w-5/12 md:pr-10 md:text-right mb-6 md:mb-0 order-3">
-                  <h3 className="text-2xl font-bold text-yellow-400">Phase 2: Building the Dam</h3>
-                  <p className="text-lg">Q3 2023</p>
-                </div>
-                <div className="hidden md:block w-16 h-16 rounded-full bg-yellow-500 border-4 border-green-900 flex items-center justify-center mx-auto order-2">
-                  <span className="text-green-900 font-bold">2</span>
-                </div>
-                <div className="md:w-5/12 md:pl-10 bg-green-900 p-6 rounded-xl order-1 md:order-3">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>NFT collection launch</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>Partnerships with other projects</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>Top 10 CEX listing</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>5,000 holders</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Phase 3 */}
-              <div className="relative md:flex justify-between items-center">
-                <div className="md:w-5/12 md:pr-10 md:text-right mb-6 md:mb-0">
-                  <h3 className="text-2xl font-bold text-yellow-400">Phase 3: Ecosystem Lake</h3>
-                  <p className="text-lg">Q4 2023</p>
-                </div>
-                <div className="hidden md:block w-16 h-16 rounded-full bg-yellow-500 border-4 border-green-900 flex items-center justify-center mx-auto">
-                  <span className="text-green-900 font-bold">3</span>
-                </div>
-                <div className="md:w-5/12 md:pl-10 bg-green-900 p-6 rounded-xl">
-                  <ul className="space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>BOBER merch store</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>BOBER DAO launch</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>Charity initiatives for wildlife</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-yellow-400 mr-2">•</span>
-                      <span>25,000 holders</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Buy Section */}
-      <section id="how-to-buy" className="py-20 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            How to Buy <span className="text-yellow-400">$BOBER</span>
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Step 1 */}
-            <div className="bg-green-900 p-6 rounded-xl">
-              <div className="text-yellow-400 text-3xl font-bold mb-4">1</div>
-              <h3 className="text-xl font-bold mb-3">Get a Wallet</h3>
-              <p className="mb-4">
-                Download MetaMask or Trust Wallet and set it up. Make sure to store your seed phrase safely!
-              </p>
-              <div className="flex space-x-3">
-                <button className="bg-green-800 hover:bg-green-700 px-4 py-2 rounded-lg">
-                  MetaMask
-                </button>
-                <button className="bg-green-800 hover:bg-green-700 px-4 py-2 rounded-lg">
-                  Trust Wallet
-                </button>
-              </div>
-            </div>
-
-            {/* Step 2 */}
-            <div className="bg-green-900 p-6 rounded-xl">
-              <div className="text-yellow-400 text-3xl font-bold mb-4">2</div>
-              <h3 className="text-xl font-bold mb-3">Get Some ETH</h3>
-              <p className="mb-4">
-                Buy Ethereum from an exchange like Coinbase or Binance, then send it to your wallet.
-              </p>
-              <div className="flex space-x-3">
-                <button className="bg-green-800 hover:bg-green-700 px-4 py-2 rounded-lg">
-                  Buy ETH
-                </button>
-              </div>
-            </div>
-
-            {/* Step 3 */}
-            <div className="bg-green-900 p-6 rounded-xl">
-              <div className="text-yellow-400 text-3xl font-bold mb-4">3</div>
-              <h3 className="text-xl font-bold mb-3">Swap for BOBER</h3>
-              <p className="mb-4">
-                Connect to Uniswap, paste our contract address, and swap your ETH for $BOBER.
-              </p>
-              <div className="flex space-x-3">
-                <button className="bg-yellow-500 hover:bg-yellow-600 text-green-900 font-bold px-4 py-2 rounded-lg">
-                  Buy on Uniswap
+          {/* Contract Address */}
+          <div className="max-w-3xl mx-auto mb-12">
+            <div className="bg-gradient-to-br from-black/20 to-blue-900/10 p-8 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20">
+              <h3 className="text-3xl font-bold mb-4 text-cyan-200">Contract Address</h3>
+              <div className="flex items-center justify-center space-x-4">
+                <p className="text-lg text-cyan-50 font-mono">0x12342476127421487126248174785678</p>
+                <button className="bg-cyan-500/20 hover:bg-cyan-500/30 p-2 rounded-lg transition-all"
+                  onClick={() => navigator.clipboard.writeText('0x1234...5678')}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-cyan-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Community Section */}
-      <section className="py-20 px-4 bg-green-800 bg-opacity-50">
-        <div className="container mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">
-            Join the <span className="text-yellow-400">Beaver</span> Lodge
-          </h2>
-          <p className="text-xl mb-10 max-w-3xl mx-auto">
-            Our community is building the biggest dam in crypto. Come help us gather twigs and build something amazing!
+          {/* Social Links */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <a href="#twitter" className="bg-gradient-to-br from-black/20 to-blue-900/10 p-6 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-xl font-bold mb-2 text-cyan-200">Twitter</h3>
+              <p className="text-lg text-cyan-50">@JELO_coin</p>
+            </a>
+            <a href="#telegram" className="bg-gradient-to-br from-black/20 to-blue-900/10 p-6 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-xl font-bold mb-2 text-cyan-200">Telegram</h3>
+              <p className="text-lg text-cyan-50">t.me/JELO</p>
+            </a>
+            <a href="#discord" className="bg-gradient-to-br from-black/20 to-blue-900/10 p-6 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-xl font-bold mb-2 text-cyan-200">Discord</h3>
+              <p className="text-lg text-cyan-50">discord.gg/JELO</p>
+            </a>
+            <a href="#medium" className="bg-gradient-to-br from-black/20 to-blue-900/10 p-6 rounded-2xl shadow-xl backdrop-blur-[2px] border border-cyan-200/20 hover:transform hover:scale-105 transition-all">
+              <h3 className="text-xl font-bold mb-2 text-cyan-200">Medium</h3>
+              <p className="text-lg text-cyan-50">medium.com/JELO</p>
+            </a>
+          </div>
+        </div>
+
+
+        {/* Call to Action Section */}
+        <div className="w-full bg-gradient-to-r from-black/10 to-black/10 backdrop-blur-[2px] py-16 px-6 text-center">
+          <h2 className="text-5xl font-bold mb-4 text-cyan-100">Get Started with JELO</h2>
+          <p className="text-xl mb-8 text-cyan-50">
+            Don't miss your chance to be part of the most adorable coin on the blockchain. Join our community today!
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#" className="bg-green-700 hover:bg-green-600 p-4 rounded-xl flex items-center">
-              <img src="/telegram-icon.png" alt="Telegram" className="h-8 w-8 mr-2" />
-              Telegram
-            </a>
-            <a href="#" className="bg-green-700 hover:bg-green-600 p-4 rounded-xl flex items-center">
-              <img src="/twitter-icon.png" alt="Twitter" className="h-8 w-8 mr-2" />
-              Twitter
-            </a>
-            <a href="#" className="bg-green-700 hover:bg-green-600 p-4 rounded-xl flex items-center">
-              <img src="/discord-icon.png" alt="Discord" className="h-8 w-8 mr-2" />
-              Discord
-            </a>
-            <a href="#" className="bg-green-700 hover:bg-green-600 p-4 rounded-xl flex items-center">
-              <img src="/dextools-icon.png" alt="Dextools" className="h-8 w-8 mr-2" />
-              Chart
-            </a>
+          <div className="flex justify-center space-x-4">
+            <button className="bg-gradient-to-r from-emerald-400 to-cyan-400 hover:from-emerald-500 hover:to-cyan-500 text-white px-10 py-5 rounded-full shadow-lg text-xl font-semibold transform hover:scale-105 transition-all">
+              Buy JELO
+            </button>
+            <button className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white px-10 py-5 rounded-full shadow-lg text-xl font-semibold transform hover:scale-105 transition-all">
+              Join Community
+            </button>
           </div>
         </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-10 px-4 bg-green-900">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-2 mb-6 md:mb-0">
-              <img src="/beaver-logo.png" alt="BOBER Logo" className="h-10 w-10" />
-              <span className="text-2xl font-bold">BOBER</span>
-            </div>
-            <div className="flex space-x-6 mb-6 md:mb-0">
-              <a href="#" className="hover:text-yellow-300">Terms</a>
-              <a href="#" className="hover:text-yellow-300">Privacy</a>
-              <a href="#" className="hover:text-yellow-300">Disclaimer</a>
-            </div>
-            <div>
-              <p className="text-sm opacity-75">
-                © 2023 BOBER Coin. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 };
 
-export default Homepage;
+export default HomeView;
