@@ -2,7 +2,6 @@ module jelo_coin::jelo;
 
 use sui::coin::{Self, TreasuryCap};
 use sui::url::new_unsafe_from_bytes;
-use bridge::treasury;
 
 const EInvalidAmount: u64 = 0;
 const ESupplyExceeded: u64 = 1;
@@ -16,14 +15,7 @@ public struct MintCapability has key {
 
 //1B JELO
 const TOTAL_SUPPLY: u64 = 1_000_000_000_000_000_000;
-
 const INITAL_SUPPLY: u64 = 100_000_000_000_000_000;
-
-const COMMUNITY_SUPPLY: u64 = 700_000_000_000_000_000;
-const CEX_SUPPLY: u64 = 200_000_000_000_000_000;
-const OPERATIONS_SUPPLY_SUPPLY: u64 = 100_000_000_000_000_000;
-
-
 
 
 fun init(otw: JELO, ctx: &mut TxContext) {
@@ -64,4 +56,34 @@ public fun mint(
   transfer::public_transfer(coin, recepient);
 
   mint_cap.total_minted = mint_cap.total_minted + amount;
+}
+
+#[test_only]
+
+use sui::test_scenario;
+
+#[test]
+
+fun test_init() {
+  let publisher = @0x11;
+
+  let mut scenario = test_scenario::begin(publisher);
+  {
+    let otw = JELO{};
+    init(otw, scenario.ctx());
+  };
+
+  scenario.next_tx(publisher);
+  {
+    let mint_cap = scenario.take_from_sender<MintCapability>();
+    let jelo_coin = scenario.take_from_sender<coin::Coin<JELO>>();
+
+    assert!(mint_cap.total_minted == INITAL_SUPPLY, EInvalidAmount);
+    assert!(jelo_coin.balance().value() == INITAL_SUPPLY, EInvalidAmount);
+
+    scenario.return_to_sender(jelo_coin);
+    scenario.return_to_sender(mint_cap);
+  };
+
+  scenario.end();
 }
