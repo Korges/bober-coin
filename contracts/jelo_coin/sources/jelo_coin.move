@@ -2,15 +2,29 @@ module jelo_coin::jelo;
 
 use sui::coin::{Self, TreasuryCap};
 use sui::url::new_unsafe_from_bytes;
+use bridge::treasury;
+
+const EInvalidAmount: u64 = 0;
+const ESupplyExceeded: u64 = 1;
 
 public struct JELO has drop {}
+
+public struct MintCapability has key {
+  id: UID,
+  total_minted: u64,
+}
 
 //1B JELO
 const TOTAL_SUPPLY: u64 = 1_000_000_000_000_000_000;
 
+const INITAL_SUPPLY: u64 = 100_000_000_000_000_000;
+
 const COMMUNITY_SUPPLY: u64 = 700_000_000_000_000_000;
 const CEX_SUPPLY: u64 = 200_000_000_000_000_000;
 const OPERATIONS_SUPPLY_SUPPLY: u64 = 100_000_000_000_000_000;
+
+
+
 
 fun init(otw: JELO, ctx: &mut TxContext) {
   let (mut treasury, metadata) = coin::create_currency(
@@ -23,20 +37,31 @@ fun init(otw: JELO, ctx: &mut TxContext) {
     ctx
   );
 
-  mint(&mut treasury, COMMUNITY_SUPPLY, @jelo_community, ctx);
-  mint(&mut treasury, CEX_SUPPLY, @jelo_cex, ctx);
-    mint(&mut treasury, OPERATIONS_SUPPLY_SUPPLY, ctx.sender(), ctx);
+  let mut mint_cap = MintCapability {
+    id: object::new(ctx),
+    total_minted: 0,
+  };
+
+  mint(&mut treasury, &mut mint_cap, INITAL_SUPPLY, ctx.sender(), ctx);
 
   transfer::public_freeze_object(metadata);
-  transfer::public_freeze_object(treasury);
+  transfer::public_transfer(treasury, ctx.sender());
+  transfer::transfer(mint_cap, ctx.sender());
 }
 
 public fun mint(
-  treasury_cap: &mut TreasuryCap<JELO>, 
+  treasury_cap: &mut TreasuryCap<JELO>,
+  mint_cap: &mut MintCapability,
   amount: u64,
   recepient: address,
   ctx: &mut TxContext
 ) {
+  assert!(amount > 0, EInvalidAmount);
+  assert!(mint_cap.total_minted + amount <= TOTAL_SUPPLY, ESupplyExceeded);
+
+
   let coin = coin::mint(treasury_cap, amount, ctx);
   transfer::public_transfer(coin, recepient);
+
+  mint_cap.total_minted = mint_cap.total_minted + amount;
 }
