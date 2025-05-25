@@ -1,12 +1,19 @@
 module jelo_coin::jelo;
 
-use sui::coin;
+use sui::coin::{Self, TreasuryCap};
 use sui::url::new_unsafe_from_bytes;
 
 public struct JELO has drop {}
 
+//1B JELO
+const TOTAL_SUPPLY: u64 = 1_000_000_000_000_000_000;
+
+const COMMUNITY_SUPPLY: u64 = 700_000_000_000_000_000;
+const CEX_SUPPLY: u64 = 200_000_000_000_000_000;
+const OPERATIONS_SUPPLY_SUPPLY: u64 = 100_000_000_000_000_000;
+
 fun init(otw: JELO, ctx: &mut TxContext) {
-  let (treasury, metadata) = coin::create_currency(
+  let (mut treasury, metadata) = coin::create_currency(
     otw,
     9,
     b"JELO",
@@ -16,7 +23,20 @@ fun init(otw: JELO, ctx: &mut TxContext) {
     ctx
   );
 
+  mint(&mut treasury, COMMUNITY_SUPPLY, @jelo_community, ctx);
+  mint(&mut treasury, CEX_SUPPLY, @jelo_cex, ctx);
+    mint(&mut treasury, OPERATIONS_SUPPLY_SUPPLY, ctx.sender(), ctx);
+
   transfer::public_freeze_object(metadata);
-  transfer::public_transfer(treasury, ctx.sender());
+  transfer::public_freeze_object(treasury);
 }
 
+public fun mint(
+  treasury_cap: &mut TreasuryCap<JELO>, 
+  amount: u64,
+  recepient: address,
+  ctx: &mut TxContext
+) {
+  let coin = coin::mint(treasury_cap, amount, ctx);
+  transfer::public_transfer(coin, recepient);
+}
