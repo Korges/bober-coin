@@ -1,16 +1,25 @@
 module jelo_coin::jelo;
 
 use sui::coin::{Self, TreasuryCap};
+use sui::balance::{Balance};
+use sui::clock::{Self, Clock};
 use sui::url::new_unsafe_from_bytes;
 
 const EInvalidAmount: u64 = 0;
 const ESupplyExceeded: u64 = 1;
+const ETokenLocked: u64 = 2;
 
 public struct JELO has drop {}
 
 public struct MintCapability has key {
   id: UID,
   total_minted: u64,
+}
+
+public struct Locker has key, store {
+  id: UID,
+  unlock_date: u64,
+  balance: Balance<JELO>,
 }
 
 //1B JELO
@@ -45,21 +54,62 @@ public fun mint(
   treasury_cap: &mut TreasuryCap<JELO>,
   mint_cap: &mut MintCapability,
   amount: u64,
-  recepient: address,
+  recipient: address,
   ctx: &mut TxContext
 ) {
+  let coin = mint_internal(treasury_cap, mint_cap, amount, ctx);
+  transfer::public_transfer(coin, recipient);
+}
+
+public fun mint_locked(
+  treasury_cap: &mut TreasuryCap<JELO>,
+  mint_cap: &mut MintCapability,
+  amount: u64,
+  recipient: address,
+  duration: u64,
+  clock: &Clock,
+  ctx: &mut TxContext
+) {
+  let coin = mint_internal(treasury_cap, mint_cap, amount, ctx);
+  let start_date = clock.timestamp_ms();
+  let unlock_date = start_date + duration;
+
+  let locker = Locker {
+    id: object::new(ctx),
+    unlock_date,
+    balance: coin::into_balance(coin)
+  };
+
+  transfer::public_transfer(locker, recipient)
+}
+
+entry fun withdraw_locked(locker: &mut Locker, clock: &Clock, ctx: &mut TxContext) {
+  assert!(clock.timestamp_ms() >= locker.unlock_date, ETokenLocked);
+
+  let locked_balance_value = locker.balance.value();
+
+  transfer::public_transfer(
+    coin::take(&mut locker.balance, locked_balance_value, ctx),
+    ctx.sender()
+  );
+}
+
+fun mint_internal(
+  treasury_cap: &mut TreasuryCap<JELO>,
+  mint_cap: &mut MintCapability,
+  amount: u64,
+  ctx: &mut TxContext
+): coin::Coin<JELO> {
   assert!(amount > 0, EInvalidAmount);
   assert!(mint_cap.total_minted + amount <= TOTAL_SUPPLY, ESupplyExceeded);
 
-
   let coin = coin::mint(treasury_cap, amount, ctx);
-  transfer::public_transfer(coin, recepient);
 
   mint_cap.total_minted = mint_cap.total_minted + amount;
+  coin
 }
 
 #[test_only]
-
 use sui::test_scenario;
 
 #[test]
