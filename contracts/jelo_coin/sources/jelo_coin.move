@@ -148,7 +148,7 @@ fun test_init() {
       900_000_000_000_000_000,
       scenario.ctx().sender(),
       scenario.ctx()
-      );
+    );
 
     assert!(mint_cap.total_minted == TOTAL_SUPPLY, EInvalidAmount);
 
@@ -215,4 +215,66 @@ fun test_lock_tokens() {
 
   scenario.end();
 
+}
+
+#[test]
+#[expected_failure(abort_code = ESupplyExceeded)]
+fun test_lock_overflow() {
+  let publisher = @0x11;
+  let bob = @0xB0B;
+
+  let mut scenario = test_scenario::begin(publisher);
+  {
+    let otw = JELO{};
+    init(otw, scenario.ctx());
+  };
+
+  scenario.next_tx(publisher);
+  {
+    let mut mint_cap = scenario.take_from_sender<MintCapability>();
+    let duration = 5000;
+    let test_clock = clock::create_for_testing(scenario.ctx());
+
+    mint_locked(
+      &mut mint_cap,
+      900_000_000_000_000_001,
+      bob,
+      duration,
+      &test_clock,
+      scenario.ctx()
+    );
+
+    scenario.return_to_sender(mint_cap);
+    test_clock.destroy_for_testing();
+  };
+
+  scenario.end();
+}
+
+#[test]
+#[expected_failure(abort_code = ESupplyExceeded)]
+fun test_mint_overflow() {
+  let publisher = @0x11;
+
+  let mut scenario = test_scenario::begin(publisher);
+  {
+    let otw = JELO{};
+    init(otw, scenario.ctx());
+  };
+
+  scenario.next_tx(publisher);
+  {
+    let mut mint_cap = scenario.take_from_sender<MintCapability>();
+    
+    mint(
+      &mut mint_cap,
+      900_000_000_000_000_001,
+      scenario.ctx().sender(),
+      scenario.ctx()
+    );
+
+    scenario.return_to_sender(mint_cap);
+  };
+
+  scenario.end();
 }
