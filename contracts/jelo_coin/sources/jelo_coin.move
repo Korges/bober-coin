@@ -2,7 +2,7 @@ module jelo_coin::jelo;
 
 use sui::coin::{Self, TreasuryCap};
 use sui::balance::{Balance};
-use sui::clock::{Clock};
+use sui::clock::{Self, Clock};
 use sui::url::new_unsafe_from_bytes;
 
 const EInvalidAmount: u64 = 0;
@@ -118,7 +118,6 @@ fun mint_internal(
 use sui::test_scenario;
 
 #[test]
-
 fun test_init() {
   let publisher = @0x11;
 
@@ -157,4 +156,63 @@ fun test_init() {
   };
 
   scenario.end();
+}
+
+#[test]
+fun test_lock_tokens() {
+  let publisher = @0x11;
+  let bob = @0xB0B;
+
+  let mut scenario = test_scenario::begin(publisher);
+  {
+    let otw = JELO{};
+    init(otw, scenario.ctx());
+  };
+
+  scenario.next_tx(publisher);
+  {
+    let mut mint_cap = scenario.take_from_sender<MintCapability>();
+    let duration = 5000;
+    let test_clock = clock::create_for_testing(scenario.ctx());
+
+    mint_locked(
+      &mut mint_cap,
+      900_000_000_000_000_000,
+      bob,
+      duration,
+      &test_clock,
+      scenario.ctx()
+    );
+
+    assert!(mint_cap.total_minted == TOTAL_SUPPLY, EInvalidAmount);
+    scenario.return_to_sender(mint_cap);
+    test_clock.destroy_for_testing();
+  };
+
+  scenario.next_tx(bob);
+  {
+    let locker = scenario.take_from_sender<Locker>();
+    let duration = 5000;
+    let mut test_clock = clock::create_for_testing(scenario.ctx());
+    test_clock.set_for_testing(duration);
+
+    let amount = withdraw_locked(
+      locker,
+      &test_clock,
+      scenario.ctx()
+    );
+
+    assert!(amount == 900_000_000_000_000_000, EInvalidAmount);
+    test_clock.destroy_for_testing();
+  };
+
+  scenario.next_tx(bob);
+  {
+    let coin = scenario.take_from_sender<coin::Coin<JELO>>();
+    assert!(coin.balance().value() == 900_000_000_000_000_000, EInvalidAmount);
+    scenario.return_to_sender(coin);
+  };
+
+  scenario.end();
+
 }
